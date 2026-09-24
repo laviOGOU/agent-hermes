@@ -292,6 +292,14 @@ def heartbeat_loop():
                                          "metadata": {"uptime_s": round(time.time() - STARTED, 1),
                                                       "task_count": len(TASK_LOG)}})
             log(f"HEARTBEAT -> HTTP {code} {json.dumps(resp, ensure_ascii=False)[:160]}")
+        except urllib.error.HTTPError as e:
+            # 404 = l'orchestrateur ne connait plus cet agent (redemarrage, registre perdu).
+            # Se plaindre ne sert a rien : on se re-enregistre.
+            if e.code in (404, 410):
+                log(f"orchestrateur ne connait plus cet agent (HTTP {e.code}) -> re-enregistrement")
+                register(CONFIG["orchestrator"])
+            else:
+                log(f"HEARTBEAT echec: HTTP {e.code}")
         except Exception as e:
             log(f"HEARTBEAT echec: {type(e).__name__}: {e}")
 
