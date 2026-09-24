@@ -1,0 +1,150 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Configuration d'agent — exemple épuré
+#
+#  Copie ce fichier vers la configuration de ton installation, puis remplace
+#  les valeurs entre crochets. Aucun secret ne va ici : les clefs d'API et les
+#  jetons de bot vivent dans le fichier .env (voir .env.example).
+#
+#  Fichier de référence de l'instance publiée : modèle deepseek, shell local,
+#  recherche SearXNG, navigateur browser-use, garde-fous anti-boucle actifs.
+# ─────────────────────────────────────────────────────────────────────────────
+
+model:
+  default: deepseek-v4-flash
+  provider: deepseek
+  base_url: https://api.deepseek.com/v1
+
+database:
+  journal_mode: wal
+
+runtime:
+  nofile_soft_limit: 4096
+
+session:
+  telegram:
+    # Un seul utilisateur : c'est la barrière d'accès à l'agent.
+    allowed_users: [TON_IDENTIFIANT_TELEGRAM]
+
+agent:
+  max_turns: 150            # plafond de tours par tâche : évite les boucles infinies
+  service_tier: ''
+  fast_auto_seconds: 60
+  verbose: false
+  reasoning_effort: medium  # faible | moyen | élevé
+  personalities: {}
+
+terminal:
+  backend: local            # local | docker | ssh | distant
+  cwd: .
+  timeout: 180
+  home_mode: auto
+  container_cpu: 1
+  container_memory: 5120
+  container_disk: 51200
+  container_persistent: true
+  lifetime_seconds: 300
+
+web:
+  backend: searxng          # moteur de recherche utilisé par l'outil web
+
+browser:
+  backend: browser-use      # navigateur réel, utile quand une requête HTTP simple est bloquée
+  inactivity_timeout: 120
+  cloud_provider: local
+
+# ── Garde-fous anti-boucle ───────────────────────────────────────────────────
+# Avertit puis arrête quand l'agent répète le même échec : c'est ce qui évite
+# qu'une session tourne des heures sans progresser.
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: false
+  non_interactive_hard_stop_enabled: true   # arrêt dur quand personne ne peut répondre
+  warn_after:
+    exact_failure: 2
+    same_tool_failure: 3
+    idempotent_no_progress: 2
+  hard_stop_after:
+    exact_failure: 5
+    same_tool_failure: 8
+    idempotent_no_progress: 5
+
+# ── Compression de contexte ──────────────────────────────────────────────────
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 20
+  protect_first_n: 3
+  min_tail_user_messages: 1
+  max_attempts: 3
+
+prompt_caching:
+  cache_ttl: 5m
+
+display:
+  streaming: true
+  show_reasoning: false
+  tool_progress: all
+  background_process_notifications: concise
+  busy_input_mode: interrupt
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200     # budget strict : la mémoire doit rester courte
+  user_char_limit: 1375
+  nudge_interval: 10
+
+skills:
+  creation_nudge_interval: 15
+
+delegation:
+  max_iterations: 250
+
+code_execution:
+  timeout: 300
+  max_tool_calls: 50
+
+cron:
+  catch_up_missed: true
+
+tts:
+  provider: piper
+
+stt:
+  enabled: true
+  language: fr
+
+# ── Passerelle ───────────────────────────────────────────────────────────────
+gateway:
+  delivery_ledger: true
+  platform_connect_timeout: 30
+  loop_watchdog: true
+  loop_watchdog_max_strikes: 3
+  startup_watchdog: true
+  startup_watchdog_timeout_seconds: 300
+  write_sessions_json: true
+  bot_loop_guard:
+    enabled: true
+    max_events: 20
+    window_seconds: 300
+    cooldown_seconds: 600
+  restart_loop_guard:
+    max_restarts: 3
+    window_seconds: 60
+  max_inbound_media_bytes: 134217728
+
+# ── Sécurité (par défaut, laissé actif) ──────────────────────────────────────
+# Les chaînes qui ressemblent à une clef d'API, un jeton ou un mot de passe
+# sont masquées dans les sorties d'outil, les journaux et les réponses, avant
+# que le modèle ou l'utilisateur ne les voie.
+security:
+  redact_secrets: true
+
+updates:
+  check: true
+
+telemetry:
+  shared_metrics:
+    enabled: false
+    send: false

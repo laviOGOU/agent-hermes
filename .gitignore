@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------------------
+#  Ce qui ne doit JAMAIS partir sur GitHub
+# ---------------------------------------------------------------------------
+
+# Secrets : clefs d'API, jetons de bot, jetons d'accès d'agent, mots de passe.
+# Un secret publié est un secret perdu, même s'il est supprimé ensuite :
+# l'historique Git le conserve.
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.txt
+
+# Journaux et fichiers d'entrée : ils contiennent des adresses IP locales, des
+# noms de machine, des identifiants d'agent et le contenu des tâches reçues.
+*.log
+inbox.jsonl
+resultats/
+captures/
+
+# Sauvegardes de configuration et état local de l'agent
+backups/
+cron/output/
+*.db
+*.sqlite
+*.sqlite3
+
+# ---------------------------------------------------------------------------
+#  Environnement Python — reproductible, jamais versionné
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ---------------------------------------------------------------------------
+#  Documents Word (.docx) — JAMAIS versionnés
+#  Ils sont générés localement à partir des .md avec outils/md2docx.py, qui
+#  reste dans le dépôt : la source est le Markdown, le Word est un livrable
+#  local. Le format Word est binaire, illisible en diff, et se régénère.
+# ---------------------------------------------------------------------------
+*.docx
+*.doc
+~$*.docx
+
+# ---------------------------------------------------------------------------
+#  Divers
+# ---------------------------------------------------------------------------
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

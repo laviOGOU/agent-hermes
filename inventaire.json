@@ -1,0 +1,442 @@
+{
+  "genere_par": "agent-hermes/inventaire.py",
+  "identite": {
+    "type": "agent autonome polyvalent",
+    "socle": "Hermes Agent (Nous Research)",
+    "modele": "deepseek-v4-flash",
+    "fournisseur": "deepseek",
+    "canal_principal": "telegram",
+    "plafond_tours_par_tache": 150,
+    "effort_de_raisonnement": "medium"
+  },
+  "outils": {
+    "nombre_sur_le_canal_principal": 17,
+    "charges_a_la_demande": true,
+    "liste": [
+      "browser",
+      "clarify",
+      "code_execution",
+      "computer_use",
+      "connections",
+      "cronjob",
+      "delegation",
+      "file",
+      "image_gen",
+      "memory",
+      "session_search",
+      "skills",
+      "terminal",
+      "todo",
+      "tts",
+      "vision",
+      "web"
+    ]
+  },
+  "capacites_declarees_aux_orchestrateurs": [
+    "echo",
+    "system_info",
+    "disk_usage",
+    "http_fetch",
+    "time",
+    "lan_scan",
+    "log_analysis",
+    "web_research",
+    "document_generation",
+    "code_generation"
+  ],
+  "competences": {
+    "note_classement": "fournie_avec_le_socle = presente dans l'installation du socle ; importee_d_un_tier = ajoutee ici avec sa marque d'import ; ajoutee_sur_cette_instance = presente sur cette machine, absente du socle, sans marque d'import automatique",
+    "total": 120,
+    "par_categorie": {
+      "apple": 4,
+      "autonomous-ai-agents": 5,
+      "creative": 25,
+      "devops": 7,
+      "email": 2,
+      "media": 3,
+      "note-taking": 1,
+      "productivity": 16,
+      "research": 4,
+      "security": 32,
+      "social-media": 1,
+      "software-development": 19,
+      "web": 1
+    },
+    "ajoutees_sur_cette_instance": [
+      {
+        "nom": "freelance-job-search",
+        "version": "",
+        "description": "Use when sourcing paid work: freelance gigs, rates, boards.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md",
+          "job-boards.md",
+          "payment-and-marketplaces.md",
+          "rates-and-proposals.md"
+        ],
+        "categorie": "productivity"
+      },
+      {
+        "nom": "supabase-integration",
+        "version": "",
+        "description": "Use when connecting an app to a Supabase project.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md",
+          "probe_table.py",
+          "supabase_setup.sql"
+        ],
+        "categorie": "productivity"
+      },
+      {
+        "nom": "lan-device-discovery",
+        "version": "1.0.0",
+        "description": "Use when inventorying LAN devices, ports, or local IPs.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md",
+          "identifying-devices.md",
+          "lan_discover.py"
+        ],
+        "categorie": "security"
+      },
+      {
+        "nom": "third-party-risk-scoring",
+        "version": "1.0.0",
+        "description": "Use when scoring domains or IPs from external data.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md"
+        ],
+        "categorie": "security"
+      },
+      {
+        "nom": "local-web-app-delivery",
+        "version": "",
+        "description": "Use when building a local web app for the user.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md",
+          "cdp_screenshot.py",
+          "keyless-external-apis.md",
+          "prepare_logo.py",
+          "streamlit-config.toml",
+          "streamlit.md",
+          "ui-identity-and-diagrams.md",
+          "verification-recipes.md"
+        ],
+        "categorie": "software-development"
+      },
+      {
+        "nom": "remote-orchestrator-enrollment",
+        "version": "1.0.0",
+        "description": "Use when joining a remote agent orchestrator API.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md"
+        ],
+        "categorie": "software-development"
+      },
+      {
+        "nom": "streamlit-apps",
+        "version": "1.0.0",
+        "description": "Use when building, restyling or testing a Streamlit app.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md",
+          "browser-verification.md",
+          "custom-domains-and-hosting.md"
+        ],
+        "categorie": "software-development"
+      },
+      {
+        "nom": "toolchain-provisioning",
+        "version": "1.0.0",
+        "description": "Use when installing CLI tooling for a capability gap.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md",
+          "mcp-servers.md"
+        ],
+        "categorie": "software-development"
+      },
+      {
+        "nom": "windows-mac-address-tooling",
+        "version": "",
+        "description": "Use when reading or changing a Windows MAC address.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md"
+        ],
+        "categorie": "software-development"
+      },
+      {
+        "nom": "windows-python-gui-packaging",
+        "version": "",
+        "description": "Use when packaging a Python GUI as a Windows exe.",
+        "origine": "ajoutee_sur_cette_instance",
+        "fichiers": [
+          "SKILL.md"
+        ],
+        "categorie": "software-development"
+      }
+    ],
+    "importees_d_un_tier": [
+      {
+        "categorie": "creative",
+        "nom": "60fps-animation"
+      },
+      {
+        "categorie": "creative",
+        "nom": "accessible-animation"
+      },
+      {
+        "categorie": "creative",
+        "nom": "ascii-animation"
+      },
+      {
+        "categorie": "creative",
+        "nom": "canvas-design"
+      },
+      {
+        "categorie": "creative",
+        "nom": "frontend-design"
+      },
+      {
+        "categorie": "creative",
+        "nom": "glassmorphism"
+      },
+      {
+        "categorie": "creative",
+        "nom": "gsap-web"
+      },
+      {
+        "categorie": "creative",
+        "nom": "interaction-design"
+      },
+      {
+        "categorie": "creative",
+        "nom": "lottie-animation"
+      },
+      {
+        "categorie": "creative",
+        "nom": "micro-interaction"
+      },
+      {
+        "categorie": "creative",
+        "nom": "page-transition-animation"
+      },
+      {
+        "categorie": "creative",
+        "nom": "svg-animation"
+      },
+      {
+        "categorie": "creative",
+        "nom": "tailwind-design-system"
+      },
+      {
+        "categorie": "creative",
+        "nom": "theme-factory"
+      },
+      {
+        "categorie": "creative",
+        "nom": "visual-design-foundations"
+      },
+      {
+        "categorie": "devops",
+        "nom": "ci-cd-pipeline-builder"
+      },
+      {
+        "categorie": "devops",
+        "nom": "deployment-pipeline-design"
+      },
+      {
+        "categorie": "devops",
+        "nom": "github-actions-templates"
+      },
+      {
+        "categorie": "devops",
+        "nom": "gitlab-ci-patterns"
+      },
+      {
+        "categorie": "devops",
+        "nom": "k8s-security-policies"
+      },
+      {
+        "categorie": "devops",
+        "nom": "terraform-module-library"
+      },
+      {
+        "categorie": "security",
+        "nom": "audit-context-building"
+      },
+      {
+        "categorie": "security",
+        "nom": "container-grype"
+      },
+      {
+        "categorie": "security",
+        "nom": "coverage-analysis"
+      },
+      {
+        "categorie": "security",
+        "nom": "crack-hashcat"
+      },
+      {
+        "categorie": "security",
+        "nom": "dast-ffuf"
+      },
+      {
+        "categorie": "security",
+        "nom": "dast-nuclei"
+      },
+      {
+        "categorie": "security",
+        "nom": "dast-zap"
+      },
+      {
+        "categorie": "security",
+        "nom": "fp-check"
+      },
+      {
+        "categorie": "security",
+        "nom": "fuzzing-aflpp"
+      },
+      {
+        "categorie": "security",
+        "nom": "fuzzing-atheris"
+      },
+      {
+        "categorie": "security",
+        "nom": "fuzzing-cargo-fuzz"
+      },
+      {
+        "categorie": "security",
+        "nom": "fuzzing-libfuzzer"
+      },
+      {
+        "categorie": "security",
+        "nom": "harness-writing"
+      },
+      {
+        "categorie": "security",
+        "nom": "iac-checkov"
+      },
+      {
+        "categorie": "security",
+        "nom": "network-netcat"
+      },
+      {
+        "categorie": "security",
+        "nom": "pentest-metasploit"
+      },
+      {
+        "categorie": "security",
+        "nom": "pipeline-security"
+      },
+      {
+        "categorie": "security",
+        "nom": "policy-opa"
+      },
+      {
+        "categorie": "security",
+        "nom": "privesc-linpeas"
+      },
+      {
+        "categorie": "security",
+        "nom": "recon-nmap"
+      },
+      {
+        "categorie": "security",
+        "nom": "sast-semgrep"
+      },
+      {
+        "categorie": "security",
+        "nom": "sbom-syft"
+      },
+      {
+        "categorie": "security",
+        "nom": "sca-trivy"
+      },
+      {
+        "categorie": "security",
+        "nom": "secrets-gitleaks"
+      },
+      {
+        "categorie": "security",
+        "nom": "secrets-management"
+      },
+      {
+        "categorie": "security",
+        "nom": "secure-code-review"
+      },
+      {
+        "categorie": "security",
+        "nom": "threat-modeling"
+      },
+      {
+        "categorie": "security",
+        "nom": "variant-analysis"
+      },
+      {
+        "categorie": "security",
+        "nom": "webapp-nikto"
+      },
+      {
+        "categorie": "security",
+        "nom": "webapp-sqlmap"
+      },
+      {
+        "categorie": "software-development",
+        "nom": "skill-creator"
+      }
+    ],
+    "venant_du_socle": 58
+  },
+  "extensions_publiees": [
+    {
+      "nom": "cvlynk-agent",
+      "fichiers": [
+        ".env.example",
+        "README.md",
+        "cvlynk_agent.py",
+        "start_agent.bat"
+      ],
+      "points_entree": [
+        "cvlynk_agent.py"
+      ]
+    },
+    {
+      "nom": "lan-agent",
+      "fichiers": [
+        "README.md",
+        "agent.py",
+        "start_agent.bat"
+      ],
+      "points_entree": [
+        "agent.py"
+      ]
+    }
+  ],
+  "garde_fous": {
+    "avertir_apres": {
+      "exact_failure": 2,
+      "same_tool_failure": 3,
+      "idempotent_no_progress": 2
+    },
+    "arreter_apres": {
+      "exact_failure": 5,
+      "same_tool_failure": 8,
+      "idempotent_no_progress": 5
+    },
+    "arret_dur_non_interactif": true,
+    "compression_de_contexte": true,
+    "secrets_masques_par_defaut": true
+  },
+  "moteurs": {
+    "shell": "local",
+    "navigateur": "browser-use",
+    "recherche_web": "searxng",
+    "synthese_vocale": "piper"
+  }
+}
