@@ -193,7 +193,7 @@ def upnp_names(url):
         xml = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "inv"}),
                                      timeout=3).read().decode("utf-8", "replace")
     except Exception as ex:
-        return {"error": str(ex)[:80]}
+        return {"error": "impossible d'obtenir les details"}
     out = {}
     for tag in ("friendlyName", "modelName", "manufacturer", "deviceType"):
         m = re.search(r"<%s>(.*?)</%s>" % (tag, tag), xml, re.S | re.I)
