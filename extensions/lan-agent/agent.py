@@ -165,7 +165,8 @@ def execute_task(payload: dict) -> dict:
         try:
             result = {"status": "completed", "capability": cap, "result": HANDLERS[cap](payload)}
         except Exception as e:
-            result = {"status": "failed", "capability": cap, "error": f"{type(e).__name__}: {e}"}
+            log(f"ERREUR TACHE {cap}: {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            result = {"status": "failed", "capability": cap, "error": "une erreur interne est survenue"}
     result["task_id"] = payload.get("task_id") or payload.get("id")
     result["agent_id"] = CONFIG.get("agent_id")
     result["duration_ms"] = round((time.time() - t0) * 1000, 1)
@@ -279,7 +280,7 @@ def register(orchestrator: str) -> bool:
     except urllib.error.HTTPError as e:
         log(f"REGISTER refuse: HTTP {e.code} {e.read().decode('utf-8', 'replace')[:300]}")
     except Exception as e:
-        log(f"REGISTER impossible ({type(e).__name__}: {e})")
+        log(f"REGISTER impossible ({type(e).__name__}: {e})\n{traceback.format_exc()}")
     return False
 
 
@@ -301,7 +302,7 @@ def heartbeat_loop():
             else:
                 log(f"HEARTBEAT echec: HTTP {e.code}")
         except Exception as e:
-            log(f"HEARTBEAT echec: {type(e).__name__}: {e}")
+            log(f"HEARTBEAT echec: {type(e).__name__}: {e}\n{traceback.format_exc()}")
 
 
 def main():
@@ -309,57 +310,4 @@ def main():
     ap.add_argument("--orchestrator", default=DEFAULT_ORCHESTRATOR)
     ap.add_argument("--port", type=int, default=DEFAULT_PORT)
     ap.add_argument("--bind", default="0.0.0.0")
-    ap.add_argument("--agent-id", default=None)
-    ap.add_argument("--name", default=None)
-    ap.add_argument("--host", default=None, help="IP/endpoint annonce a l'orchestrateur")
-    ap.add_argument("--register", action="store_true", help="s'enregistrer au demarrage")
-    ap.add_argument("--no-heartbeat", action="store_true")
-    ap.add_argument("--list-capabilities", action="store_true")
-    a = ap.parse_args()
-
-    if a.list_capabilities:
-        print(json.dumps(CAPABILITIES, ensure_ascii=False, indent=1))
-        return
-
-    host = a.host or local_ip()
-    CONFIG.update({
-        "orchestrator": a.orchestrator,
-        "port": a.port,
-        "agent_id": a.agent_id or f"agent-{socket.gethostname().lower()}-{a.port}",
-        "name": a.name or f"Agent {socket.gethostname()} (Hermes)",
-        "endpoint": f"http://{host}:{a.port}",
-        "logfile": os.path.join(os.path.dirname(os.path.abspath(__file__)), "agent.log"),
-    })
-
-    print("=" * 68)
-    print(f" Agent LAN {AGENT_VERSION}")
-    print(f"  agent_id   : {CONFIG['agent_id']}")
-    print(f"  endpoint   : {CONFIG['endpoint']}  (bind {a.bind}:{a.port})")
-    print(f"  capacites  : {', '.join(CAP_NAMES)}")
-    print(f"  orchestr.  : {a.orchestrator}")
-    print(f"  log        : {CONFIG['logfile']}")
-    print("=" * 68, flush=True)
-
-    if a.register:
-        ok = register(a.orchestrator)
-        log("enregistrement OK" if ok else "enregistrement NON confirme (l'agent reste joignable)")
-
-    if not a.no_heartbeat:
-        threading.Thread(target=heartbeat_loop, daemon=True).start()
-
-    srv = ThreadingHTTPServer((a.bind, a.port), Handler)
-    log(f"agent a l'ecoute sur {CONFIG['endpoint']}")
-    try:
-        srv.serve_forever()
-    except KeyboardInterrupt:
-        log("arret demande")
-    finally:
-        srv.server_close()
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except Exception:
-        traceback.print_exc()
-        sys.exit(1)
+    ap.add_argument("--agent-
