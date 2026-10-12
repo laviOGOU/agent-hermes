@@ -165,7 +165,7 @@ def execute_task(payload: dict) -> dict:
         try:
             result = {"status": "completed", "capability": cap, "result": HANDLERS[cap](payload)}
         except Exception as e:
-            log(f"ERREUR TACHE {cap}: {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            log(f"ERREUR TACHE {cap}: {type(e).__name__}: {e}")
             result = {"status": "failed", "capability": cap, "error": "une erreur interne est survenue"}
     result["task_id"] = payload.get("task_id") or payload.get("id")
     result["agent_id"] = CONFIG.get("agent_id")
@@ -280,7 +280,7 @@ def register(orchestrator: str) -> bool:
     except urllib.error.HTTPError as e:
         log(f"REGISTER refuse: HTTP {e.code} {e.read().decode('utf-8', 'replace')[:300]}")
     except Exception as e:
-        log(f"REGISTER impossible ({type(e).__name__}: {e})\n{traceback.format_exc()}")
+        log(f"REGISTER impossible ({type(e).__name__}: {e})")
     return False
 
 
@@ -302,12 +302,9 @@ def heartbeat_loop():
             else:
                 log(f"HEARTBEAT echec: HTTP {e.code}")
         except Exception as e:
-            log(f"HEARTBEAT echec: {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            log(f"HEARTBEAT echec: {type(e).__name__}: {e}")
 
 
 def main():
     ap = argparse.ArgumentParser(description="Agent LAN pour orchestrateur multi-agents")
-    ap.add_argument("--orchestrator", default=DEFAULT_ORCHESTRATOR)
-    ap.add_argument("--port", type=int, default=DEFAULT_PORT)
-    ap.add_argument("--bind", default="0.0.0.0")
-    ap.add_argument("--agent-
+    ap.add_argument("--orchestrator", default=DEFAULT_ORCHEST
